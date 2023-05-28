@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/registerNumber">
+    <fragment
+        android:id="@+id/registerNumber"
+        android:name="com.vinayak09.wsafety.RegisterNumber"
+        android:label="fragment_register_number"
+        tools:layout="@layout/fragment_register_number" >
+        <action
+            android:id="@+id/action_registerNumber_to_OTPConf"
+            app:destination="@id/OTPConf" />
+    </fragment>
+    <fragment
+        android:id="@+id/OTPConf"
+        android:name="com.vinayak09.wsafety.OTPConfigure"
+        android:label="fragment_otp_conf"
+        tools:layout="@layout/fragment_otp_conf" >
+        <action
+            android:id="@+id/action_OTPConf_to_mainMenu"
+            app:destination="@id/mainMenu" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainMenu"
+        android:name="com.vinayak09.wsafety.MainMenu"
+        android:label="fragment_main_menu"
+        tools:layout="@layout/fragment_main_menu" >
+        <action
+            android:id="@+id/action_mainMenu_to_registerNumber"
+            app:destination="@id/registerNumber" />
+    </fragment>
+</navigation>
