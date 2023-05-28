@@ -13,6 +13,8 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.IBinder;
 import android.telephony.SmsManager;
+import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 
@@ -63,10 +65,17 @@ public class ServiceMine extends Service {
             //just create music player and play here
             //before playing sound please set volume to max
 
-            SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
-            String ENUM = sharedPreferences.getString("ENUM","NONE");
-            if(!ENUM.equalsIgnoreCase("NONE")){
-                manager.sendTextMessage(ENUM,null,"Im in Trouble!\nSending My Location :\n"+myLocation,null,null);
+            if(Extras.firebaseAuth.getCurrentUser() != null){
+                Toast.makeText(this, "SOS TRIGGERED!\nImmediately sending SOS message!", Toast.LENGTH_SHORT).show();
+
+                manager.sendTextMessage(
+                        Extras.firebaseAuth.getCurrentUser().getPhoneNumber(),
+                        null,
+                        "Im in Trouble!\nSending My Location :\n" + myLocation,
+                        null,
+                        null);
+
+
             }
 
         });
@@ -80,13 +89,14 @@ public class ServiceMine extends Service {
                     this.stopForeground(true);
                     this.stopSelf();
                 }
-            } else {
+            } else if  (intent.getAction().equalsIgnoreCase("START")) {
 
                 Intent notificationIntent = new Intent(this, MainMenu.class);
                 PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
 
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    NotificationChannel channel = new NotificationChannel("MYID", "CHANNELFOREGROUND", NotificationManager.IMPORTANCE_DEFAULT);
+
+                    NotificationChannel channel = new NotificationChannel("MYID", "CHANNELFOREGROUND", NotificationManager.IMPORTANCE_HIGH);
 
                     NotificationManager m = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                     m.createNotificationChannel(channel);
@@ -94,16 +104,18 @@ public class ServiceMine extends Service {
 
                     Notification notification = new Notification.Builder(this, "MYID")
                             .setContentTitle("iSafe")
+                            .setSmallIcon(R.mipmap.ic_launcher_foreground)
                             .setContentText("Shake Device to Send SOS")
-                            .setSmallIcon(R.drawable.bb)
                             .setContentIntent(pendingIntent)
                             .build();
+
                     this.startForeground(115, notification);
                     isRunning = true;
                     Extras.progressDialog.dismiss();
                     return START_NOT_STICKY;
                 }
                 Extras.progressDialog.dismiss();
+
             }
 
         return super.onStartCommand(intent,flags,startId);

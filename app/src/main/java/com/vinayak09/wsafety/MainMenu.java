@@ -2,6 +2,7 @@ package com.vinayak09.wsafety;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -81,6 +83,7 @@ public class MainMenu extends Fragment {
                 logout = view.findViewById(R.id.logoutBtn);
 
         start.setOnClickListener(view1 -> {
+
             if ((
                     ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED &&
                     ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
@@ -144,6 +147,26 @@ public class MainMenu extends Fragment {
                     .show();
 
         });
+
+        getActivity()
+                .getOnBackPressedDispatcher()
+                        .addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+                            @Override
+                            public void handleOnBackPressed() {
+                                new MaterialAlertDialogBuilder(getActivity())
+                                        .setTitle("Program closing")
+                                        .setMessage("Would you like to logout this account before leaving?")
+                                        .setPositiveButton("Yes", (dialog, id) -> {
+                                            Extras.firebaseAuth.signOut();
+                                            getActivity().finishAndRemoveTask();
+                                        })
+                                        .setNeutralButton( "Exit only",  (dialog, id) -> {
+                                            getActivity().finishAndRemoveTask();
+                                        })
+                                        .setNegativeButton("No", null)
+                                        .show();
+                            }
+                        });
 
 
         textView.setText("will be sent to: " + Extras.firebaseAuth.getCurrentUser().getPhoneNumber());
