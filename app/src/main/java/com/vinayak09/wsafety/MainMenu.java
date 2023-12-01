@@ -1,5 +1,7 @@
 package com.vinayak09.wsafety;
 
+import static androidx.navigation.fragment.FragmentKt.findNavController;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.Notification;
@@ -80,7 +82,8 @@ public class MainMenu extends Fragment {
         MaterialButton
                 start = view.findViewById(R.id.startBtn),
                 stop = view.findViewById(R.id.stopBtn),
-                logout = view.findViewById(R.id.logoutBtn);
+                logout = view.findViewById(R.id.logoutBtn),
+                addNumber = view.findViewById(R.id.addNumberBtn);
 
         start.setOnClickListener(view1 -> {
 
@@ -148,6 +151,10 @@ public class MainMenu extends Fragment {
 
         });
 
+        addNumber.setOnClickListener(view1 -> {
+            findNavController(this).navigate(R.id.action_mainMenu_to_numberList);
+        });
+
         getActivity()
                 .getOnBackPressedDispatcher()
                         .addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
@@ -173,6 +180,8 @@ public class MainMenu extends Fragment {
 
         return view;
     }
+
+
 
     private ActivityResultLauncher<String[]> multiplePermissions = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
         @Override

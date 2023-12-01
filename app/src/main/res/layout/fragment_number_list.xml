@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainMenu">
-
+    tools:context=".numberList">
 
 
 
@@ -63,7 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-black"
-                    android:text="SOS MESSAGE"
+                    android:text="ADD NUMBER"
                     android:textAlignment="center"
                     android:textSize="35sp" />
 
@@ -72,49 +71,76 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="will be sent to: "
+                    android:text="Click the button below to add a number."
                     android:textAlignment="center"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
                     android:textSize="18sp" />
 
                 <Space
                     android:layout_width="wrap_content"
                     android:layout_height="40dp" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/addNumberBtn"
-                    style="@style/Widget.Material3.Button.ElevatedButton"
-                    android:layout_width="200dp"
-                    android:layout_height="60dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="ADD NUMBER"
-                    app:cornerRadius="10dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/startBtn"
-                    style="@style/Widget.Material3.Button.ElevatedButton"
-                    android:layout_width="200dp"
-                    android:layout_height="60dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="START"
-                    app:cornerRadius="10dp" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/addNumber"
+                        style="@style/Widget.Material3.Button.IconButton.Filled"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="2dp"
+                        android:padding="0dp"
+                        android:layout_marginRight="5dp"
+                        android:text="+"
+                        android:textSize="20sp"/>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/stopBtn"
-                    style="@style/Widget.Material3.Button.ElevatedButton"
-                    android:layout_width="200dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_height="60dp"
-                    android:text="STOP"
-                    app:cornerRadius="10dp"/>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/number"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:hint="Enter number"
+                        android:layout_weight="4"
+                        android:inputType="phone"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="12"
+                        app:counterOverflowTextAppearance="@style/TextAppearance.AppCompat.Small"
+                        app:counterTextAppearance="@style/TextAppearance.AppCompat.Small">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/logoutBtn"
-                    style="@style/Widget.Material3.Button.ElevatedButton"
-                    android:layout_width="200dp"
-                    android:layout_height="60dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="LOGOUT"
-                    app:cornerRadius="10dp"/>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/numberInput"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="phone|number"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-black"
+                    android:text="NUMBER LIST"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="10dp" />
+
+
+                <LinearLayout
+                    android:id="@+id/numberList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
 
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

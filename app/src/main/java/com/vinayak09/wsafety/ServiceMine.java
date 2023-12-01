@@ -68,13 +68,14 @@ public class ServiceMine extends Service {
             if(Extras.firebaseAuth.getCurrentUser() != null){
                 Toast.makeText(this, "SOS TRIGGERED!\nImmediately sending SOS message!", Toast.LENGTH_SHORT).show();
 
-                manager.sendTextMessage(
-                        Extras.firebaseAuth.getCurrentUser().getPhoneNumber(),
-                        null,
-                        "Im in Trouble!\nSending My Location :\n" + myLocation,
-                        null,
-                        null);
-
+                for (String number : Extras.numberList) {
+                    manager.sendTextMessage(
+                            number,
+                            null,
+                            "Im in Trouble!\nSending My Location :\n", //+ myLocation,
+                            null,
+                            null);
+                }
 
             }
 

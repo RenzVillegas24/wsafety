@@ -30,5 +30,17 @@
         <action
             android:id="@+id/action_mainMenu_to_registerNumber"
             app:destination="@id/registerNumber" />
+        <action
+            android:id="@+id/action_mainMenu_to_numberList"
+            app:destination="@id/numberList" />
+    </fragment>
+    <fragment
+        android:id="@+id/numberList"
+        android:name="com.vinayak09.wsafety.numberList"
+        android:label="fragment_number_list"
+        tools:layout="@layout/fragment_number_list" >
+        <action
+            android:id="@+id/action_numberList_to_mainMenu"
+            app:destination="@id/mainMenu" />
     </fragment>
 </navigation>
