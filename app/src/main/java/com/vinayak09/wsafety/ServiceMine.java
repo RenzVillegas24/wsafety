@@ -72,7 +72,7 @@ public class ServiceMine extends Service {
                     manager.sendTextMessage(
                             number,
                             null,
-                            "Im in Trouble!\nSending My Location :\n", //+ myLocation,
+                            "Im in Trouble!\nSending My Location :\n" + myLocation,
                             null,
                             null);
                 }

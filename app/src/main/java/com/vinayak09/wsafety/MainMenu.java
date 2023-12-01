@@ -78,7 +78,6 @@ public class MainMenu extends Fragment {
                              Bundle savedInstanceState) {
         var view = inflater.inflate(R.layout.fragment_main_menu, container, false);
 
-        TextView textView =  view.findViewById(R.id.textNum);
         MaterialButton
                 start = view.findViewById(R.id.startBtn),
                 stop = view.findViewById(R.id.stopBtn),
@@ -176,7 +175,6 @@ public class MainMenu extends Fragment {
                         });
 
 
-        textView.setText("will be sent to: " + Extras.firebaseAuth.getCurrentUser().getPhoneNumber());
 
         return view;
     }
